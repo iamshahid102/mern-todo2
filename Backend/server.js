@@ -1,24 +1,22 @@
 import express from "express";
 import cors from "cors";
-import dbConnection from './config/db.js'
+import dbConnection from "./config/db.js";
 import routes from "./routes/ToDoroutes.js";
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 
 export const app = express();
 
-
 // Middleware
 app.use(express.json());
-app.use(cors(
-  {
-    origin: "https://mern-todo2-9eq4.vercel.app"
-  }
-));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  })
+);
 
 // MongoDB connection
 dbConnection();
-
 
 app.use("/api", routes);
 
